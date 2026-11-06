@@ -27,7 +27,7 @@ The repository serves as a supplementary material for the scientific paper:
 ## 🚀 How to Run / Инструкция по запуску
 
 1. Clone or download this repository.
-2. Open `Grubbs_Simulation.m` in MATLAB.
+2. Open `Grubbs_Simulation_Simple.m` in MATLAB.
 3. Configure simulation parameters if needed:
    * `alphaVal`: Significance level (default is `0.05 * 0.5` for two-sided 5% test).
    * `sampleSizes`: Target sample sizes array (e.g., `3:150`).
