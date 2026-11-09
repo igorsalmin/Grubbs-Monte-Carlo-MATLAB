@@ -95,6 +95,13 @@ resultsTable = table(sampleSizes', critValG1, critValGn, ...
 fprintf('\n=== КРИТИЧЕСКИЕ ЗНАЧЕНИЯ ОДНОСТОРОННЕГО КРИТЕРИЯ СМИРНОВА-ГРАББСА …  (alpha = %.4f) ===\n', alphaVal);
 disp(resultsTable);
 
-% 3. Экспортируем в Excel-файл
-outputFileName = 'Grubbs_Critical_Values.xlsx';
+% 3. Экспортируем в Excel-файл в подпапку results
+folderName = 'results';
+
+% Проверяем, существует ли папка, и если нет — создаем её
+if ~exist(folderName, 'dir')
+    mkdir(folderName);
+end
+
+outputFileName = fullfile(folderName, 'Grubbs_Critical_Values_Simple.xlsx');
 writetable(resultsTable, outputFileName);

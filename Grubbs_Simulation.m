@@ -18,7 +18,7 @@ sampleSizes    = [3:150];
 % Ограничение размера матрицы в ОЗУ одного воркера
 maxChunkSize = 50; 
 
-numSubSimulations   = 1e4;  % число случаев, на которые хватит памяти в 1 итерацию
+numSubSimulations   = 1e1;  % число случаев, на которые хватит памяти в 1 итерацию
 numIteration        = 1e2;  % число итераций, в каждой numSubSimulations 
 totalSimulations    = numSubSimulations * numIteration;  % Общее число симуляций
 
@@ -40,6 +40,16 @@ numSizes  = length(sampleSizes);    % количество вариантов р
 critValG1 = zeros(numSizes, 1);     % выделяем память под критические значения G1
 critValGn = zeros(numSizes, 1);     % выделяем память под критические значения Gn
 durationTime = zeros(numSizes, 1);
+
+% -------------------------------------------------------------------------
+% создаем папку для результатов, если ее еще нет
+folderName = 'results';
+% Проверяем, существует ли папка, и если нет — создаем её
+if ~exist(folderName, 'dir')
+    mkdir(folderName);
+end
+outputFileName = fullfile(folderName, 'Grubbs_Critical_Values.xlsx');
+% -------------------------------------------------------------------------
 
 fprintf('Расчет для numSubSimulations = %.0e, numIteration = %.0e\n', numSubSimulations, numIteration);
 
@@ -139,7 +149,6 @@ for k = 1:numSizes
                         'VariableNames', {'SampleSize_n', 'G1_CritVal', 'Gn_CritVal', 'durationTime'});
 
     % 3. Экспортируем в Excel-файл
-    outputFileName = 'Grubbs_Critical_Values.xlsx';
     writetable(resultsTable, outputFileName);
 end
 
@@ -153,7 +162,6 @@ fprintf('\n=== КРИТИЧЕСКИХ ЗНАЧЕНИЙ СМИРНОВА-ГРАБ
 disp(resultsTable);
 
 % 3. Экспортируем в Excel-файл
-outputFileName = 'Grubbs_Critical_Values.xlsx';
 writetable(resultsTable, outputFileName);
 fprintf('Результаты успешно сохранены в файл: %s\n', outputFileName);
 
